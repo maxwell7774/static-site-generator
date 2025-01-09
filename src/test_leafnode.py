@@ -25,3 +25,6 @@ class TestLeafNode(unittest.TestCase):
             repr(node),
             "LeafNode(div, This is a div, {'class': 'flex'})"
         )
+
+if __name__ == "__main__":
+    unittest.main()

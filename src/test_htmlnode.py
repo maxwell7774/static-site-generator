@@ -55,3 +55,6 @@ class TestHTMLNode(unittest.TestCase):
             repr(node),
             "HTMLNode(p, I am a p tag, children: None, {'class': 'm-3 p-3'})"
         )
+
+if __name__ == "__main__":
+    unittest.main()
