@@ -4,7 +4,7 @@ from inline_markdown import split_nodes_delimiter, extract_markdown_links, extra
 from textnode import TextType, TextNode
 
 
-class TestNodeTools(unittest.TestCase):
+class TestInlineMarkdown(unittest.TestCase):
     def test_delimiter_bold(self):
         node = TextNode("This is my **bold** test", TextType.TEXT)
         new_nodes = split_nodes_delimiter([node], "**", TextType.BOLD)
