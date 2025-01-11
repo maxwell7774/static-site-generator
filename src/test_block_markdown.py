@@ -1,6 +1,6 @@
 import unittest
 
-from block_markdown import markdown_to_blocks
+from block_markdown import BlockType, block_to_block_type, markdown_to_blocks
 
 class TestBlockMarkdown(unittest.TestCase):
     def test_markdown_to_blocks_empty(self):
@@ -30,6 +30,42 @@ class TestBlockMarkdown(unittest.TestCase):
             ],
             blocks
         )
+
+    def test_block_to_block_type_paragraph(self):
+        block = "This is a block of heading 1\nThis is a newline"
+        block_type = block_to_block_type(block)
+        self.assertEqual(BlockType.PARAGRAPH, block_type)
+
+    def test_block_to_block_type_heading(self):
+        block = "# This is a block of heading 1"
+        block_type = block_to_block_type(block)
+        self.assertEqual(BlockType.HEADING, block_type)
+
+    def test_block_to_block_type_code(self):
+        block = "```\nThis is a block of heading 1\n```"
+        block_type = block_to_block_type(block)
+        self.assertEqual(BlockType.CODE, block_type)
+
+    def test_block_to_block_type_quote(self):
+        block = ">This is a block of heading 1\n>This is the second line\n>This is the third line"
+        block_type = block_to_block_type(block)
+        self.assertEqual(BlockType.QUOTE, block_type)
+
+    def test_block_to_block_type_unordered_list_asterick(self):
+        block = "* Item 1\n* Item 2\n* Item 3"
+        block_type = block_to_block_type(block)
+        self.assertEqual(BlockType.UNORDERED_LIST, block_type)
+
+    def test_block_to_block_type_unordered_list_hyphen(self):
+        block = "- Item 1\n- Item 2\n- Item 3"
+        block_type = block_to_block_type(block)
+        self.assertEqual(BlockType.UNORDERED_LIST, block_type)
+
+    def test_block_to_block_type_ordered_list(self):
+        block = "1. Item 1\n2. Item 2\n3. Item 3"
+        block_type = block_to_block_type(block)
+        self.assertEqual(BlockType.ORDERED_LIST, block_type)
+
 
 if __name__ == "__main__":
     unittest.main()
