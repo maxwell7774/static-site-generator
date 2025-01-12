@@ -62,9 +62,13 @@ def block_heading_to_html_node(block):
 
 def block_code_to_html_node(block):
     lines = block.split("\n")
-    return HTMLNode(
+    code_node = HTMLNode(
         "code",
         children=text_node_to_html_node("\n".join(lines[1:-1]))
+    )
+    return HTMLNode(
+        "pre",
+        children=[code_node]
     )
 
 def block_quote_to_html_node(block):
