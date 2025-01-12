@@ -80,10 +80,9 @@ def block_unordered_list_to_html_node(block):
     lines = block.split("\n")
     li_nodes = []
     for line in lines:
-        line = line[2:]
         li_node = HTMLNode(
             "li",
-            children=text_to_children(line)
+            children=text_to_children(line[2:])
         )
         li_nodes.append(li_node)
     return HTMLNode(
@@ -96,10 +95,9 @@ def block_ordered_list_to_html_node(block):
     lines = block.split("\n")
     li_nodes = []
     for line in lines:
-        line = line[3:]
         li_node = HTMLNode(
             "li",
-            children=text_to_children(line)
+            children=text_to_children(line[3:])
         )
         li_nodes.append(li_node)
     return HTMLNode(
