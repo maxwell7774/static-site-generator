@@ -1,9 +1,6 @@
 from enum import Enum
-from htmlnode import HTMLNode
-import htmlnode
 from inline_markdown import text_to_textnodes
 from parentnode import ParentNode
-import parentnode
 from textnode import text_node_to_html_node
 
 
@@ -22,7 +19,7 @@ def markdown_to_blocks(markdown):
     for section in sections:
         if section  == "":
             continue
-        blocks.append(section.strip(" "))
+        blocks.append(section.strip())
     return blocks
 
 
@@ -118,7 +115,7 @@ def quote_to_html_node(block):
     for line in lines:
         if not line.startswith(">"):
             raise ValueError("Invalid quote block")
-        new_lines.append(line.lstrip(">").srip())
+        new_lines.append(line.lstrip(">").strip())
     text = " ".join(new_lines)
     children = text_to_children(text)
     return ParentNode("blockquote", children)
