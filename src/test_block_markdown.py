@@ -1,6 +1,9 @@
 import unittest
 
-from block_markdown import BlockType, block_to_block_type, markdown_to_blocks
+from block_markdown import BlockType, block_to_block_type, markdown_to_blocks, markdown_to_html_node
+from htmlnode import HTMLNode
+from leafnode import LeafNode
+
 
 class TestBlockMarkdown(unittest.TestCase):
     def test_markdown_to_blocks_empty(self):
@@ -65,6 +68,49 @@ class TestBlockMarkdown(unittest.TestCase):
         block = "1. Item 1\n2. Item 2\n3. Item 3"
         block_type = block_to_block_type(block)
         self.assertEqual(BlockType.ORDERED_LIST, block_type)
+
+    def test_markdown_to_html_node_heading(self):
+        markdown = "# heading 1"
+        node = markdown_to_html_node(markdown)
+        needed_node = HTMLNode(
+            "div",
+            children=[
+                HTMLNode("h1", children=[
+                    LeafNode(None, value="heading 1")
+                ]),
+            ]
+        )
+        self.assertEqual(repr(needed_node), repr(node))
+
+    def test_markdown_to_html_node_all_headings(self):
+        markdown = "# heading 1\n\n## heading 2\n\n### heading 3\n\n#### heading 4\n\n##### heading 5\n\n###### heading 6"
+        node = markdown_to_html_node(markdown)
+        needed_node = HTMLNode(
+            "div",
+            children=[
+                HTMLNode("h1", children=[
+                    LeafNode(None, value="heading 1")
+                ]),
+                HTMLNode("h2", children=[
+                    LeafNode(None, value="heading 2")
+                ]),
+                HTMLNode("h3", children=[
+                    LeafNode(None, value="heading 3")
+                ]),
+                HTMLNode("h4", children=[
+                    LeafNode(None, value="heading 4")
+                ]),
+                HTMLNode("h5", children=[
+                    LeafNode(None, value="heading 5")
+                ]),
+                HTMLNode("h6", children=[
+                    LeafNode(None, value="heading 6")
+                ]),
+            ]
+        )
+        self.assertEqual(repr(needed_node), repr(node))
+
+
 
 
 if __name__ == "__main__":
